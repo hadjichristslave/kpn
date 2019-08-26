@@ -1,6 +1,11 @@
-from helpers import train_on_data
 from sentiment_analyzer.preprocessor import Preprocessor
 from sentiment_analyzer.processor import Processor
+
+
+
+def train_on_data(data_to_train):
+    x_aug, y_aug = preprocessor.over_sample_data(data_to_train)
+    processor.train_and_save_best_model(processed_data=x_aug, processed_data_labels=y_aug, vc=preprocessor.tf_idf_vectorizer)
 
 if __name__ == '__main__':
     preprocessor = Preprocessor()

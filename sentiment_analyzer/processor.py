@@ -19,7 +19,6 @@ class Processor:
 
     def train_and_save_best_model(self, processed_data, processed_data_labels, vc: TfidfVectorizer):
         X_train, X_val, y_train, y_val = train_test_split(processed_data, processed_data_labels, train_size=TRAIN_TEST_SPLIT)
-
         self.train_all_models(X_train, X_val, y_train, y_val)
 
         best_model = self.calculate_best_model()
