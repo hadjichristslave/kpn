@@ -18,9 +18,7 @@ class Processor:
         self.model_statistics = []
 
     def train_and_save_best_model(self, processed_data, processed_data_labels, vc: TfidfVectorizer):
-        X_train, X_val, y_train, y_val = train_test_split(
-            processed_data, processed_data_labels, train_size=0.80
-        )
+        X_train, X_val, y_train, y_val = train_test_split(processed_data, processed_data_labels, train_size=TRAIN_TEST_SPLIT)
 
         self.train_all_models(X_train, X_val, y_train, y_val)
 
@@ -31,7 +29,7 @@ class Processor:
         if SAVE_RESULTS:
             Helpers.save_model(best_model[0][0], file_path=FILE_PATH, model_name=SENTIMENT_ANALYZER_NAME)
 
-        # Helpers.print_most_significant_words(best_model[0], vc)
+        Helpers.print_most_significant_words(best_model[0], vc)
 
     def calculate_best_model(self):
         models_sorted_on_f_score = sorted(self.model_statistics, key=lambda x: x[1], reverse=True)

@@ -29,7 +29,7 @@ class Preprocessor:
         self.tf_idf_vectorizer.fit(self.data['text'])
         train_ready_data = list(self.data['text'] + ' ' + self.data['title'])
         self.clean_train_data = self.tf_idf_vectorizer.transform(train_ready_data)
-        # self.clean_reduced_train_data = self.svd.fit_transform(self.clean_train_data)
+        self.clean_reduced_train_data = self.svd.fit_transform(self.clean_train_data)
 
         if SAVE_RESULTS:
             Helpers.save_model(self.tf_idf_vectorizer, file_path=FILE_PATH, model_name=TF_IDF_VECTORIZER_NAME)
