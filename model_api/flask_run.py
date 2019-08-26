@@ -18,8 +18,13 @@ def index():
 @app.route("/predict_sentiment", methods=['POST'])
 def predict_sentiment():
     data = request.get_json()
-    title = data.get('title')
-    text = data.get('text')
+    title = data.get('title', None)
+    text = data.get('text', None)
+
+    if title is None or text is None:
+        return Response(response=json.dumps({}), status=204)
+
+
     request_data = title + ' ' + text
 
     if request_data == '':
