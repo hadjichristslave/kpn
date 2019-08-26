@@ -1,5 +1,5 @@
-from preprocessor import Preprocessor
-from processor import Processor
+from sentiment_analyzer.preprocessor import Preprocessor
+from sentiment_analyzer.processor import Processor
 
 
 def train_on_data(data_to_train):
@@ -10,7 +10,7 @@ def train_on_data(data_to_train):
 if __name__ == '__main__':
     preprocessor = Preprocessor()
     processor = Processor()
-    preprocessor.load_and_preprocess_data(path='../data/training_data/raw_dataset.csv')
+    preprocessor.load_and_preprocess_data(path='data/training_data/raw_dataset.csv')
 
     train_on_data(preprocessor.clean_train_data)
     # train_on_data(preprocessor.clean_reduced_train_data)

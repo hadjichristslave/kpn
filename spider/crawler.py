@@ -1,26 +1,28 @@
-from bs4 import BeautifulSoup
-import pandas as pd
-from spider.crawler_helpers import try_get_raw_html
 import logging
-from spider.config import DATA_SAVE_PATH, TARGET_URL
+
+import pandas as pd
+from bs4 import BeautifulSoup
+
+from spider.config import DATA_SAVE_PATH
+from spider.crawler_helpers import try_get_raw_html
 
 
 def get_review_data(div):
-    review_title = div.select('h2.review-content__title')[0].text.replace('\n', '')
-    review_text = div.select('p.review-content__text')[0].text.replace('\n', '')
-    review_score = div.select('img')[0]['alt']
-    review_id = div.select('a')[0]['href']
-    return  review_title, review_text, review_score, review_id
+    title = div.select('h2.review-content__title')[0].text.replace('\n', '')
+    text = div.select('p.review-content__text')[0].text.replace('\n', '')
+    rating = div.select('img')[0]['alt']
+    id = div.select('a')[0]['href']
+    return  title, text, rating, id
 
 
 if __name__ == '__main__':
-    logging.info("Initiating crawl process on trustpilot website for company")
+    print("Initiating crawl process on TrustPilot website for company")
     crawled_data = []
     indexes = {}
 
-    for i in range(250):
-        logging.info('Processing page {0}'.format(i+1))
-        raw_html = try_get_raw_html(page_number= i+1)
+    for page_number in range(250):
+        print('Processing page {0}'.format(page_number + 1))
+        raw_html = try_get_raw_html(page_number=page_number + 1)
 
         if raw_html is None:
             break

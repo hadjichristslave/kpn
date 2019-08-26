@@ -8,6 +8,11 @@ import traceback
 
 @retry(stop_max_attempt_number=3, wait_exponential_multiplier=1000, wait_exponential_max=10000)
 def simple_get(url):
+    """
+    A retrying policy is implemented as it is best practice to have retries in network related long running processes
+    :param url: URL to retrieve
+    :return:
+    """
     try:
         with closing(get(url, stream=True)) as resp:
             if is_valid_response(resp):
