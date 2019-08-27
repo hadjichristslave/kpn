@@ -1,13 +1,13 @@
 # Rebel report
-This repository introduces the solution code on the scraping and sentiment analysis pipeline on the Truspilot website.
+This repository introduces the solution code on the scraping and sentiment analysis pipeline based on reviews from Truspilot website.
 
 The pipeline is split into three basic modules
 
   - Spider: Spider module scrapes and stores raw review data on the data/training_data folder
-  - Sentiment analyzer: Processses the data into a valid format, and trains a plethora of classifiers. The best classifier is stored on data/models folder
+  - Sentiment analyzer: Processes the data into a valid format, and trains a plethora of classifiers. The best classifier is stored on data/models folder
   - Model API: Implements a scalable API that serves model predictions
 
-# How to run the pipline
+# How to run the pipeline
 
 The repository has a ready trained model, in order to re-scrape the site and retrain using newly scraped data, you need to run the following commands in the root of the application.
 If you want to skip the retrain, you can go straight to the docker commands and run them from the root of your directory
