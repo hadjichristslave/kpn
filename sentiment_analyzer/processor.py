@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.svm import LinearSVC
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.ensemble import AdaBoostClassifier
-from sklearn.naive_bayes import MultinomialNB
+from sklearn.naive_bayes import MultinomialNB, GaussianNB
 from sklearn.neighbors import KNeighborsClassifier
 
 from sentiment_analyzer import *
@@ -45,6 +45,9 @@ class Processor:
             self.fit_model_and_persist_fscore(X_train, X_val, c, model, y_train, y_val)
         for c in BAYES_RANGE:
             model = MultinomialNB(alpha=c, fit_prior=True, class_prior=None)
+            self.fit_model_and_persist_fscore(X_train, X_val, c, model, y_train, y_val)
+        for c in range(1):
+            model = GaussianNB()
             self.fit_model_and_persist_fscore(X_train, X_val, c, model, y_train, y_val)
         for c in FOREST_RANGE:
             model = RandomForestClassifier(n_estimators=c, random_state=42)

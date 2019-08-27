@@ -31,11 +31,12 @@ Once you have a docker server up-and-running run the following commands
 ```
 
 docker build -t sentiment:latest .
-docker run 80:8000 --restart="always" sentiment:latest
+docker run -p 80:8000 --restart="always" sentiment:latest
 ```
 
 
 Once the docker is live, you can query the API to get the predicted sentiment for different review inputs.
+The sentiment prediction ranges from 1-5 with 1 being very negative sentiment and 5 being a very positive review sentiment
 Some examples of API inputs can be found bellow
 ```sh
  curl 172.17.0.2:8080/predict_sentiment -d '{"title":"Stay Away!!", "text":"The worst experience fo my life!!"}' -H "Content-Type: application/json"
