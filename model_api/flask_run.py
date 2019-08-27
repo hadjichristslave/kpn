@@ -8,6 +8,7 @@ app = Flask(__name__)
 
 tf_idf_vectorizer = Helpers.load_model(file_path=FILE_PATH, model_name=TF_IDF_VECTORIZER_NAME)
 sentiment_predictor = Helpers.load_model(file_path=FILE_PATH, model_name=SENTIMENT_ANALYZER_NAME)
+svd = Helpers.load_model(file_path=FILE_PATH, model_name=TRUNCATED_SVD_NAME)
 stemmer = PorterStemmer()
 
 
@@ -31,7 +32,11 @@ def predict_sentiment():
         return Response(response=json.dumps({}), status=204)
     processed_text = Helpers.normalize_text(request_data, stemmer=stemmer)
     text_vectors = tf_idf_vectorizer.transform([processed_text])
-    prediction = sentiment_predictor.predict(text_vectors)
+    if USE_SVD:
+        prediction = sentiment_predictor.predict(svd.transform(text_vectors))
+    else:
+        prediction = sentiment_predictor.predict(text_vectors)
+
     return Response(response=json.dumps(int(prediction[0])), status=200)
 
 

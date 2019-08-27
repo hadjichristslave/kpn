@@ -6,8 +6,8 @@ RUN pip install matplotlib
 
 
 
-ENV LISTEN_PORT 8080
-EXPOSE 8080
+ENV LISTEN_PORT 8000
+EXPOSE 8000
 
 
 #COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf

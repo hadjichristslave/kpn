@@ -2,7 +2,6 @@ from sentiment_analyzer import *
 from nltk.stem import PorterStemmer
 from nltk.corpus import stopwords
 from sklearn.feature_extraction.text import TfidfVectorizer
-
 from sklearn.decomposition import TruncatedSVD
 
 from imblearn.over_sampling import SMOTE
@@ -15,8 +14,9 @@ class Preprocessor:
         self.path = ''
         self.data: pd.DataFrame = pd.DataFrame
         self.stemmer = PorterStemmer()
-        self.tf_idf_vectorizer = TfidfVectorizer(ngram_range=(1, 2), stop_words=stopwords.words('english'))
-        self.svd = TruncatedSVD(algorithm='randomized', n_components=2000, n_iter=7, random_state=42, tol=0.0)
+        self.tf_idf_vectorizer = TfidfVectorizer(ngram_range=NGRAM_RANGE, stop_words=stopwords.words('english'))
+        self.svd = TruncatedSVD(algorithm='randomized', n_components=SVD_COMPONENTS, n_iter=SVD_ITERRATIONS, random_state=42)
+        self.sm = SMOTE(random_state=42, sampling_strategy='auto')
         self.clean_train_data = []
         self.clean_reduced_train_data = []
 
@@ -33,12 +33,13 @@ class Preprocessor:
 
         if SAVE_RESULTS:
             Helpers.save_model(self.tf_idf_vectorizer, file_path=FILE_PATH, model_name=TF_IDF_VECTORIZER_NAME)
+            Helpers.save_model(self.svd, file_path=FILE_PATH, model_name=TRUNCATED_SVD_NAME)
 
 
     def over_sample_data(self, data_to_oversample):
         self.plot_initial_data_distribution()
-        sm = SMOTE(random_state=42, sampling_strategy='auto')
-        X_res, y_res = sm.fit_resample(data_to_oversample, list(self.data['clean_rating']))
+
+        X_res, y_res = self.sm.fit_resample(data_to_oversample, list(self.data['clean_rating']))
         return X_res, y_res
 
     def plot_initial_data_distribution(self):

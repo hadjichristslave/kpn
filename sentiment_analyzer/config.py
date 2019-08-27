@@ -1,6 +1,7 @@
 SAVE_RESULTS = True
 FILE_PATH = 'data/models/'
 TF_IDF_VECTORIZER_NAME = 'tf_idf_vectorizer.pkl'
+TRUNCATED_SVD_NAME = 'svd.pkl'
 SENTIMENT_ANALYZER_NAME = 'sentiment_analyzer.pkl'
 
 C_RANGE = [0.01, 1, 5, 10]
@@ -10,3 +11,7 @@ NEIGHBOR_RANGE = [1, 5, 10]
 
 TRAIN_TEST_SPLIT = 0.8
 USE_SVD = False
+NGRAM_RANGE = (1, 2)
+
+SVD_ITERRATIONS=10
+SVD_COMPONENTS=20
